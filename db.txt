@@ -1,0 +1,69 @@
+
+drop table patients
+
+CREATE TABLE patients1 (
+    patientid INT PRIMARY KEY,
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
+    dob DATE,
+    gender VARCHAR(10),
+    contactnumber VARCHAR(15),
+    email VARCHAR(100),
+    address TEXT,
+    city VARCHAR(50),
+    emergencycontactname VARCHAR(50),
+    emergencycontactnumber VARCHAR(15),
+    insuranceprovider VARCHAR(50),
+    insurancenumber VARCHAR(50),
+    registrationdate DATE,
+    lastvisitdate DATE,
+    cityid INT,
+    talukid INT
+);
+
+COPY Public.patients1 From 'E:\AUROITECH INTERN\KAFKA 2\kafka\kafka\data.csv' DELIMITER ','CSV HEADER ;
+
+
+select* from patients1
+
+------------------------------------------------------------------
+--In prompt :
+
+ALTER SYSTEM SET wal_level ='logical' ;
+
+ALTER TABLE public.patients1 REPLICA IDENTITY FULL;
+
+Show wal_level;
+
+------------------------------------------------------------------
+
+
+--Testing :
+
+select * from patients_madurai
+
+INSERT INTO patients1 (
+    patientid, firstname, lastname, gender, contactnumber, email, address, city, 
+    emergencycontactname, emergencycontactnumber, insuranceprovider, insurancenumber, 
+    cityid, talukid
+) VALUES (
+    2000, 'Ramesh', 'Kumar', 'Male', '9923566138', 'lakshmi.kumar@example.com', 
+    '05/191 Sankaran Nagar', 'Madurai', 'Ravi', '7351539837', 'Religare Health', 
+    'Cr713144', 1, 3
+);
+
+
+update patients1
+set firstname='Saravana'
+where patientid=2000
+
+
+
+delete from patients1
+where patientid=2000
+
+
+
+
+
+
